@@ -1,0 +1,25 @@
+/*定义基准单位大小 1rem=基准值*/
+@media (min-device-width : 320px) and (max-device-width : 375px) {
+      html{font-size: 32px;}
+}
+@media (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2){
+      html{font-size: 37.5px;}
+}
+.container {
+	display: flex;
+	flex-direction:column ;
+	
+}
+html,body{
+	width: 100%;
+	height: 100%;
+	#app{
+		width:100%;
+		height:100%;
+		display: flex;
+		flex-direction:column ;
+		.container {
+			flex:1 1 auto;
+		}
+	}
+}

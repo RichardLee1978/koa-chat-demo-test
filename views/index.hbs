@@ -1,0 +1,47 @@
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+<p>userfirstname: {{user.first_name}}</p>
+<p>userid: {{user.id}}</p>
+<div id="message"></div>
+<div id="chat"></div>
+<input type="text" class="js-send-val" />
+<input type="hidden" id="Token" value="{{token}}"/>
+<button type="button" class="js-send-btn">发送</button>
+<button type="button" class="js-login-btn">发送</button>
+<script src="/js/socket.io-1.4.5.js"></script>
+<script>
+    var token = document.getElementById("Token");
+    var socket = io.connect('', {
+            query: 'token=' + token.value
+        });
+    //聊天室地址
+    var chat = io( 'http://localhost:3000/chat' )
+    //发送按钮
+    var btn = document.querySelector( '.js-send-btn' );
+    var login_btn = document.querySelector('.js-login-btn');
+    var msg=document.querySelector('.js-send-val');
+    //按钮发送事件
+    btn.addEventListener( 'click', function( event ) {
+        console.log(msg.value);
+        socket.emit( 'chat message', msg.value );
+        msg.value="";
+    });
+    login_btn.addEventListener('click',function(event){
+
+        socket.emit( 'login', msg.value );
+    })
+    //消息显示区域
+    var message = document.getElementById("message");
+    //连接事件
+    socket.on( 'chat message', function( iomsg ) {
+        console.log( 'connected', iomsg )
+        message.innerHTML += iomsg+"<br />";
+    });
+    socket.on( 'message', function( iomsg ) {
+        console.log( 'connected', iomsg )
+        message.innerHTML += iomsg+"<br />";
+    });
+
+
+
+</script>
